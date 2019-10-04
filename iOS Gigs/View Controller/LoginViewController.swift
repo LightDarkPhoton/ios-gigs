@@ -6,6 +6,8 @@
 //  Copyright © 2019 Andrew Ruiz. All rights reserved.
 //
 
+// Syncing testing github
+
 import UIKit
 
 enum LoginType {
@@ -13,7 +15,7 @@ enum LoginType {
     case signIn
 }
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -22,7 +24,7 @@ class LoginViewController: UIViewController {
     
     
     var gigController: GigController?
-    var loginType: LoginType = .signUp
+    var loginType =  LoginType.signUp
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,15 +41,15 @@ class LoginViewController: UIViewController {
             !password.isEmpty else { return }
         
         let user = User(username: username, password: password)
-    
         
         if loginType == .signUp {
             
-            print(user)
+            print("Before gigcontroller")
             gigController?.signUp(with: user, completion: { (error) in
-                
+                print("We're in the gigController")
                 if let error = error {
                     NSLog("Error occurred during sign up: \(error)")
+                    print("We hit an error.")
                 } else {
                     let alert = UIAlertController(title: "Sign Up Successful",
                                                   message: "Now please log in",
